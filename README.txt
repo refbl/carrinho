@@ -8,7 +8,6 @@
 2 - Subir MongoDB
    2.1 - criar a pasta de dados do mongodb (Ex. c:\data\db)
    2.2 - Executar arquivo C:\Program Files\MongoDB\Server\4.2\bin\mongod.exe
-   https://www.youtube.com/watch?v=gkCnXcxHC4o
    https://spring.io/guides/gs/accessing-data-mongodb/
    
 ESTRATÉGIA ADOTADA
@@ -21,5 +20,4 @@ ESTRATÉGIA ADOTADA
    - Por conta do prazo nesta primeira versão alguns itens não foram abordados:
      - health_check do backend
      - Controle de usuários mais aprimorado (verificação através do campo e-mail)
-     - 
-     - 
+
