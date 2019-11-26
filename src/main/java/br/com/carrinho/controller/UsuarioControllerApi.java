@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.carrinho.dto.UsuarioDto;
 import br.com.carrinho.model.Usuario;
 import br.com.carrinho.service.UsuarioService;
 

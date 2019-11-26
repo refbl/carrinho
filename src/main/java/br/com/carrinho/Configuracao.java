@@ -1,5 +1,8 @@
 package br.com.carrinho;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,6 +15,7 @@ import br.com.carrinho.model.Usuario;
 import br.com.carrinho.repository.CarrinhoRepository;
 import br.com.carrinho.repository.ItemRepository;
 import br.com.carrinho.repository.UsuarioRepository;
+import br.com.carrinho.service.CarrinhoService;
 
 
 @SpringBootApplication
@@ -25,6 +29,9 @@ public class Configuracao implements CommandLineRunner {
 	
 	@Autowired
 	private CarrinhoRepository repositoryCarrinho;
+	
+	@Autowired
+	private CarrinhoService carrinhoService;
 	
 	
 	public static void main(String[] args) {
@@ -75,6 +82,7 @@ public class Configuracao implements CommandLineRunner {
 		repositoryItem.save(new Item("Colher", 15.80));
 		repositoryItem.save(new Item("Colher Sobremesa", 15.0));
 		repositoryItem.save(new Item("Faca", 20.0));
+		repositoryItem.save(new Item("Aparelho de Som", 300.0));
 
 		// fetch all customers
 		System.out.println("Itens found with findAll():");
@@ -98,21 +106,69 @@ public class Configuracao implements CommandLineRunner {
         System.out.println("-------------- CARRINHO    --------------------------------");
 		
         Usuario usuario = repositoryUsuario.findByNome("Maria");
-        Item item = repositoryItem.findByNome("Colher");
+        Item item = repositoryItem.findByNome("Garfo");
+        
         
 		repositoryCarrinho.deleteAll();
 
         Carrinho carrinho = new Carrinho(usuario ,item);
+        carrinho.addItem(item);
         repositoryCarrinho.save(carrinho);
         
-        item = repositoryItem.findByNome("Garfo");
+        item = repositoryItem.findByNome("Colher");
         carrinho.addItem(item);
+        carrinho.addItem(item);
+        carrinho.addItem(item);
+        
+        item = repositoryItem.findByNome("Aparelho de Som");
+        carrinho.addItem(item);
+        carrinho.addItem(item);
+        
         repositoryCarrinho.save(carrinho);
         
 		// fetch an individual customer
 		System.out.println("Carrinho findByUsuario():");
 		System.out.println("--------------------------------");
 		System.out.println(repositoryCarrinho.findByUsuario(usuario));
+		
+		System.out.println("---");
+		
+		System.out.println(carrinhoService.fecharCompra(carrinho));
+		
+		System.out.println("--****");
+		
+		System.out.println(carrinhoService.obterListaCarrinhos());
+		
+		/*
+		// Count
+		itens.stream()
+		  .collect(Collectors.groupingBy(item2 -> item2.nome, Collectors.counting()))
+		  .forEach((nome,count)->System.out.println(nome+"\t"+count));
+		
+		System.out.println("---");
+		
+		// Count
+		itens.stream()
+		  .collect(Collectors.groupingBy(item2 -> item2, Collectors.counting()))
+		  .forEach((item2,count)->System.out.println(item2+"\t"+count));
+		
+		System.out.println("---");
+		
+		//Sum
+		itens.stream()
+		  .collect(Collectors.groupingBy(item2 -> item2.nome,
+		                                    Collectors.summingDouble(item2-> item2.valor)))
+		  .forEach((nome,sumValor)->System.out.println(nome+"\t"+sumValor));
+		
+		
+		System.out.println("---");
+		
+        System.out.println(itens);
+        
+        List<Item> itensSemRepeticao = itens.stream().distinct().collect(Collectors.toList());
+         
+        System.out.println(listWithoutDuplicates);
+        */
 		
 	}
 

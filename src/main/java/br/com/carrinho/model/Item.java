@@ -5,18 +5,18 @@ import org.springframework.data.annotation.Id;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
-@EqualsAndHashCode @ToString
+@EqualsAndHashCode
 public class Item {
 
-    @Id
+    @Id  @Getter @Setter
     public String id;
 
     @Getter @Setter
     public String nome;
+    
     @Getter @Setter
-    public double valor;
+    public Double valor;
 
     public Item() {}
 
@@ -28,7 +28,7 @@ public class Item {
     @Override
     public String toString() {
         return String.format(
-                "Usuario[id=%s, Nome='%s', Valor='%s']",
+                "Item[id=%s, Nome='%s', Valor='%s']",
                 this.id, this.nome, this.valor);
     }
 

@@ -1,4 +1,4 @@
-package br.com.carrinho.controller;
+package br.com.carrinho.dto;
 
 import lombok.Getter;
 import lombok.Setter;

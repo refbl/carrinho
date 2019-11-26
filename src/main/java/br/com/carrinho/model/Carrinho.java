@@ -8,15 +8,17 @@ import org.springframework.data.annotation.Id;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
-@EqualsAndHashCode @ToString
+@EqualsAndHashCode
 public class Carrinho {
 
     //@Id
     //public String id;
     
 	@Id @Getter @Setter
+	private String id;
+	
+	@Getter @Setter
     public Usuario usuario;
 
     @Getter @Setter
@@ -37,9 +39,12 @@ public class Carrinho {
     }
 
 	public void addItem(Item item) {
-		// TODO Auto-generated method stub
 		if (this.itens == null) this.itens = new ArrayList<Item>();
         this.itens.add(item);
+	}
+	
+	public void removeItem(Item item) {
+		if (this.itens != null) this.itens.remove(item);
 	}
 
 }
