@@ -18,6 +18,8 @@ import br.com.carrinho.repository.UsuarioRepository;
 import br.com.carrinho.service.CarrinhoService;
 
 
+
+
 @SpringBootApplication
 public class Configuracao implements CommandLineRunner {
 	
