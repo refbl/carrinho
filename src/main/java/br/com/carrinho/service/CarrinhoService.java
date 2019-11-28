@@ -108,15 +108,15 @@ public class CarrinhoService {
     		// Count
         	itens.stream()
         	  .filter(item -> item.getNome().equals(itemCompra.getNome()))
-    		  .collect(Collectors.groupingBy(item -> item.nome, Collectors.counting()))
+    		  .collect(Collectors.groupingBy(item -> item.getNome(), Collectors.counting()))
     		  .forEach((nome,count)->itemCompradoDto.setQuantidade(count.intValue()));
     		
     		
     		//Sum
         	itens.stream()
         	  .filter(item -> item.getNome().equals(itemCompra.getNome()))
-    		  .collect(Collectors.groupingBy(item -> item.nome,
-    		                                    Collectors.summingDouble(item-> itemCompra.valor)))
+    		  .collect(Collectors.groupingBy(item -> item.getNome(),
+    		                                    Collectors.summingDouble(item-> itemCompra.getValor())))
     		  .forEach((nome,sumValor) ->itemCompradoDto.setValorTotal(sumValor));
         	
 			//Adiciona no List

@@ -1,13 +1,9 @@
 package br.com.carrinho;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.carrinho.model.Carrinho;
 import br.com.carrinho.model.Item;
@@ -40,10 +36,6 @@ public class Configuracao implements CommandLineRunner {
 		SpringApplication.run(Configuracao.class, args);
 	}
 	
-	@RequestMapping(value = "/hello")
-	public String hello(){
-		return "Hello World";
-	}
 	
 	@Override
 	public void run(String... args) throws Exception {

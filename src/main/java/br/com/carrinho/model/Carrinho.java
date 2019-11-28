@@ -17,10 +17,10 @@ public class Carrinho {
 	private String id;
 	
 	@Getter @Setter
-    public Usuario usuario;
+	private Usuario usuario;
 
     @Getter @Setter
-    public List<Item> itens;
+    private List<Item> itens;
 
     public Carrinho() {}
 

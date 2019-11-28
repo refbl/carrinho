@@ -10,13 +10,13 @@ import lombok.Setter;
 public class Item {
 
     @Id  @Getter @Setter
-    public String id;
+    private String id;
 
     @Getter @Setter
-    public String nome;
+    private String nome;
     
     @Getter @Setter
-    public Double valor;
+    private Double valor;
 
     public Item() {}
 
