@@ -58,6 +58,12 @@ public class CarrinhoService {
 		repository.save(carrinho);
 	}
 	
+	public Carrinho salvar(Usuario usuario){
+		Carrinho carrinho = new Carrinho(usuario,null);
+		repository.save(carrinho);
+		return carrinho;
+	}
+	
 	public Carrinho pesquisaPorUsuario(Usuario usuario){
 		return repository.findByUsuario(usuario);
 	}

@@ -12,12 +12,17 @@
    
 ESTRATÉGIA ADOTADA
    - Backend utilizando Springboot , com Appserver Jetty persistindo em MongoDB
-   - Backend expondo APIs para usuarios, Itens e Carrinho de Compras
+   - Backend disponilizando APIs para usuarios, Itens e Carrinho de Compras
    - Utilizado Maven para controle de Dependências
    - Validação de Unicidade de Registros:
      - Usuário - Através do campo "e-mail"
      - Item - Através do campo "nome"
    - Por conta do prazo nesta primeira versão alguns itens não foram abordados:
+     - Tratamento de Exception aplicado somente no valor do Item
      - health_check do backend
-     - Controle de usuários mais aprimorado (verificação através do campo e-mail)
+     - Controle de autenticação de usuários (apenas cadastramento único por e-mail informado)
+     - Aplicação não foi Dockerizada
+     - Não foi publicada em cloud
+     - Cobertura de testes não atingiu o percentual de 60% (Utilizado Jacoco para aferição)
+     
 

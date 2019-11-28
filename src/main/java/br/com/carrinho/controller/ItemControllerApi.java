@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.carrinho.dto.ItemDto;
+import br.com.carrinho.exceptions.ValorInvalidoException;
 import br.com.carrinho.model.Item;
 import br.com.carrinho.service.ItemService;
 
@@ -60,10 +61,16 @@ public class ItemControllerApi {
 			return new ResponseEntity<ItemDto>(itemDto, HttpStatus.UNAUTHORIZED);
 	  	}
 		
-    	item = new Item(itemDto.getNome(), itemDto.getValor());
-    	service.salvar(item);
-    	itemDto.setId(item.getId());
-    	return new ResponseEntity<ItemDto>(itemDto, HttpStatus.CREATED);
+	  	try{
+	    	item = new Item(itemDto.getNome(), itemDto.getValor());
+	    	service.salvar(item);
+	    	itemDto.setId(item.getId());
+	    	return new ResponseEntity<ItemDto>(itemDto, HttpStatus.CREATED);
+
+	  	} catch (ValorInvalidoException e) {
+	  		itemDto.setMensagem("Valor Informado é Invalido");
+			return new ResponseEntity<ItemDto>(itemDto, HttpStatus.BAD_REQUEST);
+	  	}
     }
 	
     
@@ -86,12 +93,17 @@ public class ItemControllerApi {
 		  		return new ResponseEntity<ItemDto>(itemDto, HttpStatus.UNAUTHORIZED);
 		  	}
 	  		
-	  		System.out.println("Achou");
-	  		item.setNome(itemDto.getNome());
-	  		item.setValor(itemDto.getValor());
-	  		service.salvar(item);
-	  		itemDto.setId(item.getId());
-	      	return new ResponseEntity<ItemDto>(itemDto, HttpStatus.OK);
+		  	try {
+		  		System.out.println("Achou");
+		  		item.setNome(itemDto.getNome());
+		  		item.setValor(itemDto.getValor());
+		  		service.salvar(item);
+		  		itemDto.setId(item.getId());
+		      	return new ResponseEntity<ItemDto>(itemDto, HttpStatus.OK);
+		  	} catch (ValorInvalidoException e) {
+		  		itemDto.setMensagem("Valor Informado é Invalido");
+				return new ResponseEntity<ItemDto>(itemDto, HttpStatus.BAD_REQUEST);
+		  	}
 
 	  	} else {
 	  		System.out.println("Nao Achou");

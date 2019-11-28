@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.carrinho.exceptions.ValorInvalidoException;
 import br.com.carrinho.model.Item;
 import br.com.carrinho.repository.ItemRepository;
 
@@ -18,7 +19,10 @@ public class ItemService {
 		return repository.findAll();
 	}
 	
-	public void salvar(Item item){
+	public void salvar(Item item) throws ValorInvalidoException{
+		if (item.getValor() <= 0){
+			throw new ValorInvalidoException("Valor do Item deve ser maior que zero");
+		}
 		repository.save(item);
 	}
 	
@@ -32,6 +36,7 @@ public class ItemService {
 
 	public Item pesquisaPorId(String id) {
 		Optional<Item> result = repository.findById(id);
+		System.out.println("PesquisaPorId: " + result.get());
 		return result.isPresent()?result.get():null;
 		
 	}
