@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import br.com.carrinho.model.Item;
+import br.com.carrinho.model.Usuario;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -59,4 +60,14 @@ public class ItemRepositoryTest {
 		item = itemRepository.findByNome("Mochila");
 		assertNull(item); 
 	}
+	
+	@Test
+	public void validaEquals(){
+		Item item = new Item("Garfo", 20.0);
+		Item item2 = new Item("Garfo", 20.0);
+		
+		assertEquals(item.equals(item2), true);
+
+	}
+	
 }

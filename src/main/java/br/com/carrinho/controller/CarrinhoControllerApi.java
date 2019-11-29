@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.carrinho.dto.CarrinhoCompraDto;
+import br.com.carrinho.dto.ItemCompradoDto;
 import br.com.carrinho.model.Carrinho;
 import br.com.carrinho.model.Item;
 import br.com.carrinho.model.Usuario;
@@ -53,13 +55,28 @@ public class CarrinhoControllerApi {
     	return carrinhos;
     }
 	
+	@CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value="/api/carrinho/{idCarrinho}/fecharcompra" , method = RequestMethod.GET)
+    public Iterable<CarrinhoCompraDto> fecharCompra(@PathVariable("idCarrinho") String idCarrinho) {
+		Carrinho carrinho = carrinhoService.pesquisaPorId(idCarrinho);
+		
+		List<ItemCompradoDto> itemCompradoDtoList = carrinhoService.fecharCompra(carrinho);
+		
+		List<CarrinhoCompraDto> carrinhoCompraDtoList = new ArrayList<>();
+		
+        CarrinhoCompraDto carrinhoCompraDto = new CarrinhoCompraDto();
+        carrinhoCompraDto.setCarrinho(carrinho);
+        carrinhoCompraDto.setItensComprados(itemCompradoDtoList);
+        carrinhoCompraDtoList.add(carrinhoCompraDto);
+
+    	return carrinhoCompraDtoList;
+    }
+	
 	
 	@CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/api/carrinho", method = RequestMethod.POST)
     public ResponseEntity<Carrinho> incluiCarrinho(@RequestBody Usuario usuario) {
-		System.out.println("-- Incluir Carrinho--");
-		System.out.println(usuario);
-		
+	
     	Carrinho carrinho = carrinhoService.salvar(usuario);
 
     	return new ResponseEntity<Carrinho>(carrinho, HttpStatus.CREATED);
@@ -96,22 +113,14 @@ public class CarrinhoControllerApi {
 	@CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/api/carrinho/{idCarrinho}/item/{idItem}", method = RequestMethod.POST)
     public ResponseEntity<Carrinho> incluirItem(@PathVariable("idCarrinho") String idCarrinho,@PathVariable("idItem") String idItem) {
-		System.out.println("-- Incluir Item--");
-		System.out.println(idCarrinho);
-		System.out.println(idItem);
-		
 		Carrinho carrinho = carrinhoService.pesquisaPorId(idCarrinho);
 		if (carrinho == null){
-	  		System.out.println("Nao Achou Carrinho");
-	  		//usuarioDto.setMensagem("Usuário não Encontrado");
 	  		return new ResponseEntity<Carrinho>(carrinho, HttpStatus.NOT_FOUND);
 			
 		}
 		
 		Item item = itemService.pesquisaPorId(idItem);
 		if (item == null){
-	  		System.out.println("Nao Achou Item");
-	  		//usuarioDto.setMensagem("Usuário não Encontrado");
 	  		return new ResponseEntity<Carrinho>(carrinho, HttpStatus.NOT_FOUND);
 		}
 		// Atualiza Carrinho
@@ -123,28 +132,18 @@ public class CarrinhoControllerApi {
 	@CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/api/carrinho/{idCarrinho}/item/{idItem}", method = RequestMethod.DELETE)
     public ResponseEntity<Carrinho> deletarItem(@PathVariable("idCarrinho") String idCarrinho,@PathVariable("idItem") String idItem) {
-		System.out.println("-- Deletar Item--");
-		System.out.println(idCarrinho);
-		System.out.println(idItem);
-		
 		Carrinho carrinho = carrinhoService.pesquisaPorId(idCarrinho);
 		if (carrinho == null){
-	  		System.out.println("Nao Achou Carrinho");
-	  		//usuarioDto.setMensagem("Carrinho não Encontrado");
 	  		return new ResponseEntity<Carrinho>(carrinho, HttpStatus.NOT_FOUND);
 			
 		}
 		
 		Item item = itemService.pesquisaPorId(idItem);
 		if (item == null){
-	  		System.out.println("Nao Achou Item");
-	  		//usuarioDto.setMensagem("Item não Encontrado");
 	  		return new ResponseEntity<Carrinho>(carrinho, HttpStatus.NOT_FOUND);
 		}
 		// Atualiza Carrinho
 		carrinhoService.removeItem(carrinho, item);
 		return new ResponseEntity<Carrinho>(carrinho, HttpStatus.OK);
     }
-	
-
 }

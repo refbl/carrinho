@@ -49,10 +49,6 @@ public class ItemControllerApi {
 	@CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/api/item", method = RequestMethod.POST)
     public ResponseEntity<ItemDto> incluiItem(@RequestBody ItemDto itemDto) {
-		System.out.println("-- Incluir Item--");
-		System.out.println(itemDto.getNome());
-		System.out.println(itemDto.getValor());
-
 		String nome = itemDto.getNome() != null?itemDto.getNome().trim():itemDto.getNome();
 	  	Item item = service.pesquisaPorNome(nome);
 	  	
@@ -77,11 +73,6 @@ public class ItemControllerApi {
 	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value = "/api/item/{id}", method = RequestMethod.PATCH)
     public ResponseEntity<ItemDto> alterarItem(@PathVariable("id") String id, @RequestBody ItemDto itemDto) {
-    
-		System.out.println("-- Alterar Item - PATH");
-		System.out.println(itemDto.getNome());
-		System.out.println(itemDto.getValor());
-		
 		String nome = itemDto.getNome() != null?itemDto.getNome().trim():itemDto.getNome();
 	  	Item item = service.pesquisaPorNome(nome);
 
@@ -94,7 +85,6 @@ public class ItemControllerApi {
 		  	}
 	  		
 		  	try {
-		  		System.out.println("Achou");
 		  		item.setNome(itemDto.getNome());
 		  		item.setValor(itemDto.getValor());
 		  		service.salvar(item);
@@ -106,7 +96,6 @@ public class ItemControllerApi {
 		  	}
 
 	  	} else {
-	  		System.out.println("Nao Achou");
 	  		itemDto.setMensagem("Item não Encontrado");
 	  		return new ResponseEntity<ItemDto>(itemDto, HttpStatus.NOT_FOUND);
 	  	}
@@ -116,19 +105,13 @@ public class ItemControllerApi {
 	@CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/api/item/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<ItemDto> deletarItem(@PathVariable("id") String id) {
-        System.out.println("Entrou no DELETE----");
-		
 	  	Item item = service.pesquisaPorId(id);
 	  	ItemDto itemDto = new ItemDto();
         
     	if (item != null){
-    		System.out.println("Achou");
-    		
     		service.deletar(item);
         	return new ResponseEntity<ItemDto>(itemDto, HttpStatus.OK);
     	} else {
-    		
-    		System.out.println("Nao Achou");
     		itemDto.setMensagem("Item Não Encontrado");
     		return new ResponseEntity<ItemDto>(itemDto, HttpStatus.NOT_FOUND);
     	}

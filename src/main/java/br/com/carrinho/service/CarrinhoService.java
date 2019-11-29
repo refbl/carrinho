@@ -98,8 +98,6 @@ public class CarrinhoService {
         Comparator<Item> compareByName = (Item item1, Item item2) -> item1.getNome().compareTo( item2.getNome());
         Collections.sort(itensSemRepeticao, compareByName);
         
-        System.out.println("Itens sem Repeticao:" + itensSemRepeticao);
-        
         for (Item itemCompra : itensSemRepeticao) {
         	
     		ItemCompradoDto itemCompradoDto = new ItemCompradoDto();
@@ -123,7 +121,6 @@ public class CarrinhoService {
     		itensCarrinho.add(itemCompradoDto);
 		}
         
-         
 		return itensCarrinho;
 	}
 

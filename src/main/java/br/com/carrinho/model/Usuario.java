@@ -6,8 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-
-@EqualsAndHashCode 
+@EqualsAndHashCode
 public class Usuario {
 
     @Id @Getter @Setter

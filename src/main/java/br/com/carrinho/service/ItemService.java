@@ -36,7 +36,6 @@ public class ItemService {
 
 	public Item pesquisaPorId(String id) {
 		Optional<Item> result = repository.findById(id);
-		System.out.println("PesquisaPorId: " + result.get());
 		return result.isPresent()?result.get():null;
 		
 	}
